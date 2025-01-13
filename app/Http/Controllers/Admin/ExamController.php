@@ -302,6 +302,9 @@ class ExamController extends Controller
                ->where('scores.student_id', $getIdStudent)
                ->where('scores.semester', session('semester'))
                ->where('scores.academic_year', session('academic_year'))
+               ->when($sort !== 'all', function ($query) use ($sort) {
+                  return $query->where('scores.subject_id', $sort);
+               })
                ->select('exams.*', 'grades.name as grade_name', 'grades.class as grade_class',
                   'subjects.name_subject as subject_name', 'teachers.name as teacher_name',
                   'type_exams.name as type_exam' , 'scores.score as score', 'students.name as student_name')

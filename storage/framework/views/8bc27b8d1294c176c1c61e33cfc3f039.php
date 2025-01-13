@@ -8,17 +8,20 @@
             <nav aria-label="breadcrumb" class="bg-white rounded-3 p-3 mb-4">
                 <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item">Home</li>
-                <li class="breadcrumb-item active" aria-current="page">Scorings</li>
+                <li class="breadcrumb-item active" aria-current="page">Assessments</li>
                 </ol>
             </nav>
         </div>
     </div>
 
+    <?php if(session('role') == 'student'): ?>
     <form class="row align-items-center" action="<?php echo e(route('student.dashboard.exam')); ?>" method="GET">
+    <?php elseif(session('role') == 'parent'): ?>
+    <form class="row align-items-center" action="<?php echo e(route('parent.dashboard.exam')); ?>" method="GET">
+    <?php endif; ?>
         <div class="col-md-3 align-items-center">
             <div class="form-group">
                 <label for="subject-select">Sort By :</label>
-                
                 <select name="order" class="custom-select form-control-border" id="subject-select" onchange="this.form.submit()">
                     <?php
                         $selectedOrder = $form->sort;
@@ -125,7 +128,7 @@
             
             <?php
             $role = session('role');
-            $link = "/{$role}/dashboard/exam?";
+            $link = "/{$role}/dashboard/assessment?";
             $previousLink = $link . '&page=' . ($data->currentPage() - 1);
             $nextLink = $link . '&page=' . ($data->currentPage() + 1);
             $firstLink = $link . '&page=1';

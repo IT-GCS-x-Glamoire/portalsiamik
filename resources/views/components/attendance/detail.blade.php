@@ -38,25 +38,12 @@
                     <td> : {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</td>
                 </tr>
             </table>
-            {{-- <p class="text-xs">Semester : {{ $data['semester']}}</p> 
-            <p class="text-xs">Class : {{ $data['grade']->grade_name }} - {{ $data['grade']->grade_class }}</p>
-            <p class="text-xs">Class Teacher : {{ $data['classTeacher']->teacher_name }}</p>
-            <p class="text-xs">Date : {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }} --}}
             </p>
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-            @if (session('role') == 'superadmin')
-                    <form id="confirmForm" method="POST" action={{route('actionPostScoringAttendance')}}>
-                @elseif (session('role') == 'admin')
-                    <form id="confirmForm" method="POST" action={{route('actionAdminPostScoringAttendance')}}>
-                @elseif (session('role') == 'teacher')
-                    <form id="confirmForm" method="POST" action={{route('actionTeacherPostScoringAttendance')}}>
-                @endif
-            @csrf
-
             @if ($data['status'] == null)
                 <div class="row my-2">
                     <div class="input-group-append mx-2">
@@ -115,10 +102,6 @@
                     @endif
                 </tbody>
             </table>
-            <input name="semester" type="number" class="form-control d-none" id="semester" value="{{ $data['semester'] }}">  
-            <input name="grade_id" type="number" class="form-control d-none" id="grade_id" value="{{ $data['grade']->grade_id }}">    
-            <input name="class_teacher" type="number" class="form-control d-none" id="class_teacher" value="{{ $data['classTeacher']->teacher_id }}">  
-            </form>
         </div>
     </div>
 
@@ -151,11 +134,6 @@
                                             <th class="text-center text-xs" style="vertical-align: middle;">{{ \Carbon\Carbon::parse($date)->format('l, d F Y') }}
                                             </th>
                                         @endforeach
-                                        <!-- <th class="text-center" style="vertical-align: middle;">P</th>
-                                        <th class="text-center" style="vertical-align: middle;">A</th>
-                                        <th class="text-center" style="vertical-align: middle;">S</th>
-                                        <th class="text-center" style="vertical-align: middle;">L</th>
-                                        <th class="text-center" style="vertical-align: middle;">PE</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -207,90 +185,4 @@
         </div>
     @endforeach
 </div>
-
-<!-- Confirmation Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalLabel">Confirm Submit Score Attendance</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to submit score attendance?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmAccScoring">Yes, Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Decline -->
-<div class="modal fade" id="modalDecline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Decline Score Attendance {{ $data['grade']->name }} - {{ $data['grade']->class }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">Are you sure want to decline scoring attendance {{ $data['grade']->name }} - {{ $data['grade']->class }} ?</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a class="btn btn-danger btn" id="confirmDecline">Yes decline</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    document.getElementById('confirmAccScoring').addEventListener('click', function() {
-        document.getElementById('confirmForm').submit();
-    });
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     $('#modalDecline').on('show.bs.modal', function(event) {
-    //         var button = $(event.relatedTarget);
-    //         var gradeId = @json($data['grade']->id);
-    //         var teacherId = @json($data['classTeacher']->teacher_id);
-    //         var semester = @json($data['semester']);
-
-    //         console.log("gradeId=", gradeId, "teacher=", teacherId, "semester=", semester, "subject=", subjectId, academicYear);
-    //         var confirmDecline = document.getElementById('confirmDecline');
-    //         confirmDecline.href = "{{ url('/' . session('role') . '/dashboard/scoring/decline') }}/" + gradeId + "/" + teacherId + "/" + subjectId + "/" + semester;
-    //     });
-    // });
-</script>
-
-<link rel="stylesheet" href="{{asset('template')}}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-<script src="{{asset('template')}}/plugins/sweetalert2/sweetalert2.min.js"></script>
-
-@if(session('after_post_attendance_score'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Successfully',
-            text: 'Successfully post attendance score report in the database.',
-        });
-    </script>
-@endif
-
-@if(session('success_attend'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Successfully',
-            text: 'Successfully attendance student',
-        });
-    </script>
-@endif
-
-
-
 @endsection

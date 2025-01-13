@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDO;
 
 class DashboardController extends Controller
 {
@@ -169,8 +170,12 @@ class DashboardController extends Controller
          {
             $id                = Student::where('user_id', session('id_user'))->value('id');
             $gradeIdStudent    = Student::where('user_id', session('id_user'))->value('grade_id');
-            $dataStudent       = Grade::with(['subject', 'exam', 'teacher', 'student'])->where('id', $gradeIdStudent)->first();
-            $totalExam         = Grade_exam::join('exams', 'exams.id', '=', 'grade_exams.exam_id')
+            $dataStudent       = Grade::with(['subject' => function($query){
+               $query->orderBy('name_subject', 'asc');
+            }, 'exam', 'teacher', 'student' => function($query){
+               $query->orderBy('name', 'asc');
+            }])->where('id', $gradeIdStudent)->first();
+            $totalExam = Grade_exam::join('exams', 'exams.id', '=', 'grade_exams.exam_id')
                ->where('grade_id', $gradeIdStudent)
                ->where('exams.semester', session('semester'))
                ->where('exams.academic_year', session('academic_year'))
