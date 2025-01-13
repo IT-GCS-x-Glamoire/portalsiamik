@@ -350,39 +350,39 @@
 <!-- /.content-wrapper -->
 
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('#view').forEach(function(button) {
-         button.addEventListener('click', function() {
-               var assessmentId = this.getAttribute('data-id');
-               var sessionRole = @json(session('role'));
-               var url;
-                if (sessionRole === "parent") {
-                    url = "{{ route('set.assessment.id') }}";
-                } else if (sessionRole === "student") {
-                    url = "{{ route('set.assessment.id.student') }}";
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('#view').forEach(function(button) {
+        button.addEventListener('click', function() {
+              var assessmentId = this.getAttribute('data-id');
+              var sessionRole = @json(session('role'));
+              var url;
+              if (sessionRole === "parent") {
+                  url = "{{ route('set.assessment.id') }}";
+              } else if (sessionRole === "student") {
+                  url = "{{ route('set.assessment.id.student') }}";
+              }
+              
+              $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    id: assessmentId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                          window.location.href = '/' + sessionRole + '/dashboard/assessment/detail';
+                    } else {
+                          alert('Failed to set exam ID in session.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Error: ' + error);
                 }
-               
-               $.ajax({
-                  url: url,
-                  method: 'POST',
-                  data: {
-                     id: assessmentId,
-                     _token: '{{ csrf_token() }}'
-                  },
-                  success: function(response) {
-                     if (response.success) {
-                           window.location.href = '/' + sessionRole + '/dashboard/exam/detail';
-                     } else {
-                           alert('Failed to set exam ID in session.');
-                     }
-                  },
-                  error: function(xhr, status, error) {
-                     alert('Error: ' + error);
-                  }
-               });
-         });
-      });
-   });
+              });
+        });
+    });
+  });
 </script>
 
 @endsection

@@ -159,9 +159,10 @@ class ExamController extends Controller
             ->join('subjects', 'subject_exams.subject_id', '=', 'subjects.id')
             ->join('teachers', 'exams.teacher_id', '=', 'teachers.id')
             ->join('type_exams', 'exams.type_exam', '=', 'type_exams.id')
+            ->join('scores', 'exams.id', '=', 'scores.exam_id')
             ->where('exams.id', $id)
             ->where('exams.academic_year', session('academic_year'))
-            ->select('exams.*', 'grades.name as grade_name', 'grades.class as grade_class', 'subjects.name_subject as subject_name', 'teachers.name as teacher_name', 'type_exams.name as type_exam')
+            ->select('exams.*', 'grades.name as grade_name', 'grades.class as grade_class', 'subjects.name_subject as subject_name', 'teachers.name as teacher_name', 'type_exams.name as type_exam', 'scores.score as score') 
             ->first();
 
          if (session('role') == 'student' || 'parent'){
@@ -275,7 +276,7 @@ class ExamController extends Controller
                ->select('exams.*', 'grades.name as grade_name', 'grades.class as grade_class',
                   'subjects.name_subject as subject_name', 'teachers.name as teacher_name',
                   'type_exams.name as type_exam' , 'scores.score as score', 'students.name as student_name')
-               ->orderBy('created_at', 'asc')
+               ->orderBy('created_at', 'desc')
                ->paginate(15);
          } 
 
@@ -284,7 +285,6 @@ class ExamController extends Controller
             $getIdUser     = session('id_user');
             $id            = Student::where('user_id', $getIdUser)->value('grade_id');
             $getIdStudent  = Student::where('user_id', $getIdUser)->value('id');
-            $getIdStudent      = session('studentId');
 
             $gradeIdStudent    = Student::where('students.id', $getIdStudent)->value('grade_id');
             $subjects          = Grade::with(['subject' => function($query){
@@ -305,7 +305,7 @@ class ExamController extends Controller
                ->select('exams.*', 'grades.name as grade_name', 'grades.class as grade_class',
                   'subjects.name_subject as subject_name', 'teachers.name as teacher_name',
                   'type_exams.name as type_exam' , 'scores.score as score', 'students.name as student_name')
-               ->orderBy('date_exam', 'desc')
+               ->orderBy('created_at', 'desc')
                ->paginate(15);
          }
 

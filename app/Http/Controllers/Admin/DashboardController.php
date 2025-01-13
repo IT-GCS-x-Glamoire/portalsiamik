@@ -180,9 +180,11 @@ class DashboardController extends Controller
             $totalSubject      = Grade_subject::where('grade_id', $gradeIdStudent)->get()->count('id');
             $totalStudentGrade = Student::where('grade_id', $gradeIdStudent)->get()->count('id');
             $totalAbsent       = Attendance::where('student_id', $id)
-            ->where('present', 0)
-            ->get()
-            ->count();
+               ->where('semester', session('semester'))
+               ->where('academic_year', session('academic_year'))
+               ->where('present', 0)
+               ->get()
+               ->count();
 
             $eca = Student_eca::where('student_id', $id)
                ->leftJoin('ecas', 'ecas.id', '=', 'student_ecas.eca_id')
@@ -196,6 +198,7 @@ class DashboardController extends Controller
                ->where('grades.id', $gradeIdStudent)
                ->where('exams.semester', session('semester'))
                ->where('exams.academic_year', session('academic_year'))
+               ->orderByRaw('is_active = 0 ASC, date_exam DESC')
                ->get();
 
             foreach ($dataExam as $ed ) {
@@ -271,11 +274,15 @@ class DashboardController extends Controller
             $parent            = Relationship::where('user_id', session('id_user'))->first();
 
             $totalAbsent       = Attendance::where('student_id', $setStudentFirst)
+               ->where('semester', session('semester'))
+               ->where('academic_year', session('academic_year'))
                ->where('present', 0)
                ->get()
                ->count();
             
             $totalLate = Attendance::where('student_id', $setStudentFirst)
+               ->where('semester', session('semester'))
+               ->where('academic_year', session('academic_year'))
                ->where('late', 1)
                ->get()
                ->count();
@@ -285,8 +292,9 @@ class DashboardController extends Controller
                ->join('type_exams', 'type_exams.id', '=', 'exams.type_exam')
                ->select('exams.*', 'type_exams.name as type_exam_name', 'grades.name as grade_name', 'grades.class as grade_class')
                ->where('grades.id', $gradeIdStudent)
-               ->where('exams.is_active', 1)
-               ->orderBy('date_exam', 'asc')
+               ->where('exams.semester', session('semester'))
+               ->where('exams.academic_year', session('academic_year'))
+               ->orderByRaw('exams.is_active = 0 ASC, date_exam DESC')
                ->get();
 
             foreach ($dataExam as $ed ) {

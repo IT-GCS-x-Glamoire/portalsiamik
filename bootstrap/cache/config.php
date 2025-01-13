@@ -201,8 +201,8 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\framework/cache/data',
-        'lock_path' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\framework/cache/data',
+        'path' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\framework/cache/data',
+        'lock_path' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -474,7 +474,7 @@
     ),
     'temporary_files' => 
     array (
-      'local_path' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\framework/cache/laravel-excel',
+      'local_path' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\framework/cache/laravel-excel',
       'local_permissions' => 
       array (
       ),
@@ -491,13 +491,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\app',
+        'root' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\app',
         'throw' => false,
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\app/public',
+        'root' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
         'throw' => false,
@@ -517,7 +517,7 @@
     ),
     'links' => 
     array (
-      'C:\\xampp\\htdocs\\siamik-portal-gcs\\public\\storage' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\app/public',
+      'C:\\xampp\\htdocs\\portalsiamik\\public\\storage' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -556,14 +556,14 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\logs/laravel.log',
         'level' => 'debug',
         'replace_placeholders' => true,
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
         'replace_placeholders' => true,
@@ -628,7 +628,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -695,7 +695,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\resources\\views/vendor/mail',
+        0 => 'C:\\xampp\\htdocs\\portalsiamik\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -807,7 +807,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\framework/sessions',
+    'files' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -827,9 +827,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\resources\\views',
+      0 => 'C:\\xampp\\htdocs\\portalsiamik\\resources\\views',
     ),
-    'compiled' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\framework\\views',
+    'compiled' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\framework\\views',
   ),
   'wireui' => 
   array (
@@ -1038,10 +1038,10 @@
     'convert_entities' => true,
     'options' => 
     array (
-      'font_dir' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\fonts',
-      'font_cache' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\storage\\fonts',
+      'font_dir' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\fonts',
+      'font_cache' => 'C:\\xampp\\htdocs\\portalsiamik\\storage\\fonts',
       'temp_dir' => 'C:\\Users\\itgcs\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\xampp\\htdocs\\siamik-portal-gcs',
+      'chroot' => 'C:\\xampp\\htdocs\\portalsiamik',
       'allowed_protocols' => 
       array (
         'file://' => 
@@ -1081,7 +1081,7 @@
   'livewire' => 
   array (
     'class_namespace' => 'App\\Livewire',
-    'view_path' => 'C:\\xampp\\htdocs\\siamik-portal-gcs\\resources\\views/livewire',
+    'view_path' => 'C:\\xampp\\htdocs\\portalsiamik\\resources\\views/livewire',
     'layout' => 'components.layouts.app',
     'lazy_placeholder' => NULL,
     'temporary_file_upload' => 
@@ -1197,7 +1197,7 @@
     array (
     ),
     'enable_runnable_solutions' => NULL,
-    'remote_sites_path' => 'C:\\xampp\\htdocs\\siamik-portal-gcs',
+    'remote_sites_path' => 'C:\\xampp\\htdocs\\portalsiamik',
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
     'settings_file_path' => '',
